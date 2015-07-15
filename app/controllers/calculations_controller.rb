@@ -121,7 +121,9 @@ m=@numbers.length/2
 
     @mean = @numbers.inject{ |sum, el| sum + el }.to_f / @numbers.size
 
-    @variance = "insert"
+    # @variance = ((@numbers-@mean)**2)/@numbers.count
+
+@variance = "insert"
 
     @standard_deviation = "insert"
 

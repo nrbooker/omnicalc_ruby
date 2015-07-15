@@ -1,4 +1,4 @@
-# Omnicalc
+`# Omnicalc
 
 The goal of this project is to get more practice with writing Ruby programs; but now, you are going to see your output in the browser rather than in Terminal.
 
