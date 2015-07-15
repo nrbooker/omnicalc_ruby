@@ -11,16 +11,18 @@ class CalculationsController < ApplicationController
     # ================================================================================
 
 
-    @character_count_with_spaces = "Replace this string with your answer."
+    @character_count_with_spaces = @text.length
 
-    @character_count_without_spaces = "Replace this string with your answer."
+    @character_count_without_spaces = @text.gsub(" ", "").length
 
-    @word_count = "Replace this string with your answer."
+    @word_count = @text.split.length
 
-    @occurrences = "Replace this string with your answer."
-  end
+    @occurrences = a = @text.split.count(@special_word)
 
-  def loan_payment
+
+end
+
+def loan_payment
     @apr = params[:annual_percentage_rate].to_f
     @years = params[:number_of_years].to_i
     @principal = params[:principal_value].to_f
@@ -32,10 +34,14 @@ class CalculationsController < ApplicationController
     # The principal value the user input is in the decimal @principal.
     # ================================================================================
 
-    @monthly_payment = "Replace this string with your answer."
-  end
+    a = @apr/100
+    y = @years*12
+    p = @principal*(1 + a)
 
-  def time_between
+    @monthly_payment = p/y
+end
+
+def time_between
     @starting = Chronic.parse(params[:starting_time])
     @ending = Chronic.parse(params[:ending_time])
 
@@ -48,42 +54,141 @@ class CalculationsController < ApplicationController
     #   number of seconds as a result.
     # ================================================================================
 
-    @seconds = "Replace this string with your answer."
-    @minutes = "Replace this string with your answer."
-    @hours = "Replace this string with your answer."
-    @days = "Replace this string with your answer."
-    @weeks = "Replace this string with your answer."
-    @years = "Replace this string with your answer."
-  end
+    s = @starting
+    e = @ending
 
-  def descriptive_statistics
+    @seconds = e-s
+    @minutes = @seconds/60
+    @hours = @seconds/3600
+    @days = @seconds/86400
+    @weeks = @days/7
+    @years = @weeks/52.1785714286
+end
+
+def descriptive_statistics
     @numbers = params[:list_of_numbers].gsub(',', '').split.map(&:to_f)
 
     # ================================================================================
     # Your code goes below.
     # The numbers the user input are in the array @numbers.
     # ================================================================================
+m=@numbers.length/2
 
-    @sorted_numbers = "Replace this string with your answer."
 
-    @count = "Replace this string with your answer."
+    @sorted_numbers = @numbers.sort
 
-    @minimum = "Replace this string with your answer."
+    @count = @numbers.length
 
-    @maximum = "Replace this string with your answer."
+    @minimum = @numbers.sort[0]
 
-    @range = "Replace this string with your answer."
+    @maximum = @numbers.sort.reverse[0]
 
-    @median = "Replace this string with your answer."
+    @range = @maximum-@minimum
 
-    @sum = "Replace this string with your answer."
+    @median = @numbers.sort[m].to_f
 
-    @mean = "Replace this string with your answer."
+#     @sum = def sum(list_of_numbers)
 
-    @variance = "Replace this string with your answer."
 
-    @standard_deviation = "Replace this string with your answer."
+#     running_total = 0
+#   @numbers.each do |number|
+#     running_total = running_total + number
 
-    @mode = "Replace this string with your answer."
-  end
+#   return 
+#   running_total
+# end
+
+
+#     = sum(list_of_numbers)
+#     running_total=0
+#       list_of_numbers.each do |number|
+#         running_total = running_total + number
+#     return
+#     running_total
+# end
+
+#     @mean = def mean(list_of_numbers)
+#     running_total = 0
+#     count_for_mean = list_of_numbers.count
+#     list_of_numbers.each do |number|
+#         running_total = running_total + number
+#     return 
+#     running_total / count_for_mean
+# end
+# end
+
+    @sum = @numbers.inject{ |sum, el| sum + el }.to_f
+
+    @mean = @numbers.inject{ |sum, el| sum + el }.to_f / @numbers.size
+
+    @variance = "insert"
+
+    @standard_deviation = "insert"
+
+    @mode = "insert"
+
+#     @sorted_numbers = @numbers.sort
+
+#     @count = @numbers.length
+
+#     @minimum = @numbers.sort[0]
+
+#     @maximum = @numbers.sort.reverse[0]
+
+#     @range = @maximum-@minimum 
+
+#     @median = (@maximum-@minimum)/@count
+
+#     @sum = @sum =
+#  def sum(list_of_numbers)
+#     running_total = 0
+#     list_of_numbers.each do |number|
+#     running_total = running_total + number
+#     end
+
+
+    # @sum = def sum(list_of_numbers)
+    # running_total=0
+    # @numbers.each do |number|
+    # sum_total=sum_total + number
+    # end
+    # return sum_total
+    # end
+    
+
+#     return running_total
+#     end
+
+#     @mean = arr = @numbers
+#     arr.inject{ |sum, el| sum+el }.to_f / arr.size
+
+#     @variance = (@sum-@mean)**2
+
+#     OR = def variance(list_of_numbers)
+#       average_dataset= mean(list_of_numbers)
+#         running_total = 0
+#           list_of_numbers.each do |number|
+#              running_total = running_total + ((number - average_dataset)**2)
+# end   
+#     vari = running_total/list_of_numbers.length
+# return vari
+# end
+
+# @variance = def variance(list_of_numbers)
+#     running_total=0
+#     count_for_mean=@numbers.count
+#     @numbers.each  |number|
+#         running_total=running_total + (((@mean - numbers) **2))
+#     end 
+#     return running_total/@mean
+# end
+
+
+#     @standard_deviation = sqrt(@variance)
+
+#     @mode = "Replace this string with your answer."
+
+
+
+end
 end
